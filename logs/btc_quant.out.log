@@ -1,0 +1,31 @@
+✅ 数据源：Stooq（主源）
+✅ 数据已就绪：/Users/qiupengchao/lab/btc/bitcoin_price_history_usd.csv（无新增，共 4128 行）
+✅ 报告已生成：/Users/qiupengchao/lab/btc/reports/report.md（日期：2026-01-31）
+📩 邮件已发送
+✅ 数据源：Stooq（主源）
+✅ 数据已就绪：/Users/qiupengchao/lab/btc/bitcoin_price_history_usd.csv（无新增，共 4128 行）
+✅ 报告已生成：/Users/qiupengchao/lab/btc/reports/report.md（日期：2026-01-31）
+📩 邮件已发送
+✅ 数据源：Stooq（主源）
+✅ 数据已就绪：/Users/qiupengchao/lab/btc/bitcoin_price_history_usd.csv（无新增，共 4128 行）
+✅ 报告已生成：/Users/qiupengchao/lab/btc/reports/report.md（日期：2026-01-31）
+📩 邮件已发送
+✅ 数据已就绪：/Users/qiupengchao/lab/btc/bitcoin_price_history_usd.csv（无新增，共 4129 行；数据源：coingecko(备源-无新增；stooq失败:SSLError)）
+✅ 报告已生成：/Users/qiupengchao/lab/btc/reports/report.md（日期：2026-02-01）
+📩 邮件已发送
+✅ 数据已就绪：/Users/qiupengchao/lab/btc/bitcoin_price_history_usd.csv（无新增，共 4129 行；数据源：coingecko(备源-无新增；stooq失败:SSLError)）
+✅ 报告已生成：/Users/qiupengchao/lab/btc/reports/report.md（日期：2026-02-01）
+📩 邮件已发送
+✅ 数据已就绪：/Users/qiupengchao/lab/btc/bitcoin_price_history_usd.csv（无新增，共 4129 行；数据源：stooq(主源)）
+✅ 报告已生成：/Users/qiupengchao/lab/btc/reports/report.md（日期：2026-02-01）
+📩 邮件已发送
+✅ 数据已就绪：/Users/qiupengchao/lab/btc/bitcoin_price_history_usd.csv（无新增，共 4129 行；数据源：stooq(主源)）
+✅ 报告已生成：/Users/qiupengchao/lab/btc/reports/report.md（日期：2026-02-01）
+📩 邮件已发送
+⚠️ CoinGecko 备源失败（第1/3次）：SSLError: HTTPSConnectionPool(host='api.coingecko.com', port=443): Max retries exceeded with url: /api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=2 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))；1.2s后重试
+✅ 数据已就绪：/Users/qiupengchao/lab/btc/bitcoin_price_history_usd.csv（无新增，共 4129 行；数据源：stooq(主源；周末可能无更新)）
+✅ 报告已生成：/Users/qiupengchao/lab/btc/reports/report.md（日期：2026-02-01）
+📩 邮件已发送
+✅ 数据已就绪：/Users/qiupengchao/lab/btc/bitcoin_price_history_usd.csv（有更新，共 4130 行；数据源：stooq(主源)）
+✅ 报告已生成：/Users/qiupengchao/lab/btc/reports/report.md（日期：2026-02-02）
+📩 邮件已发送
