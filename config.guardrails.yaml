@@ -1,0 +1,129 @@
+# ============================
+# Phase 2 - Guardrails Config
+# ============================
+
+app:
+  timezone: "Asia/Singapore"
+  schema_version: 1
+  rules_version: 1
+
+# ----------------------------
+# Storage
+# ----------------------------
+db:
+  path: "data/btc_radar.db"
+
+outputs:
+  json_dir: "radar/outputs"
+  include_debug: false   # true 时会在 JSON 里输出 ret_1h / rv_24h / z_vol 等
+
+# ----------------------------
+# Market / Symbols
+# ----------------------------
+market:
+  symbol_binance: "BTCUSDT"
+  vs_currency: "usd"
+
+# ----------------------------
+# Data Sources (Ingest)
+# ----------------------------
+sources:
+  # 单次 HTTP 请求超时（秒）
+  timeout_sec: 2
+
+  # ingest 总时间预算（秒）
+  # 主源失败 + 兜底最多消耗这么多时间
+  total_budget_sec: 4
+
+  providers:
+    # 主源：Binance 公共行情（1h Kline）
+    - name: "binance_spot_klines"
+      priority: 1
+      enabled: true
+
+    # 兜底：CoinGecko（只在主源失败时用）
+    - name: "coingecko_simple_price"
+      priority: 2
+      enabled: true
+
+# ----------------------------
+# Confidence / Quality Control
+# ----------------------------
+confidence:
+  # 低于该值：认为数据质量下降（进入 cautious）
+  degraded_below: 0.8
+
+  # 低于该值：认为数据不可用（可能 freeze）
+  fail_below: 0.5
+
+  # 回到 normal 至少需要的置信度
+  normal_requires_conf: 0.8
+
+quality:
+  # 数据延迟超过多少秒开始扣分
+  stale_warn_sec: 600
+
+  # 连续多少小时 confidence < fail_below 才确认 outage
+  outage_confirm_hours: 2
+
+# ----------------------------
+# History Windows
+# ----------------------------
+history:
+  # 计算波动/ret 时向后取多少小时（约 33 天）
+  hours_back_for_vol: 800
+
+  # 至少多少小时才计算 z-stats
+  min_hours_for_zstats: 200
+
+  # 至少多少小时才用历史分位 shock
+  min_hours_for_shock: 300
+
+# ----------------------------
+# Shock / Regime Rules
+# ----------------------------
+shock:
+  # 当没有足够历史时，1h |return| 的硬阈值（2%）
+  hard_absret1h: 0.02
+
+regime:
+  # 波动 z-score 超过该值进入 cautious
+  z_vol_cautious: 2.0
+
+  # 3 小时累计下跌超过该值进入 cautious（1%）
+  dir_3h_drop_cautious: 0.01
+
+# ----------------------------
+# Hysteresis（防抖）
+# ----------------------------
+hysteresis:
+  # freeze 解除需要连续多少小时良好
+  freeze_release_good_hours: 4
+
+  # cautious 解除需要连续多少小时良好
+  cautious_release_good_hours: 6
+
+# ----------------------------
+# Guardrails Output
+# ----------------------------
+guardrails:
+  # Phase 1 读取的有效期（分钟）
+  ttl_minutes: 90
+
+  # cautious 模式下对 Phase 1 仓位的乘数
+  cautious_position_cap: 0.5
+
+  # ✅ 新增：数据不可用时也不 freeze
+  no_freeze_on_outage: true
+  outage_position_cap: 0.5        # outage 时的 cap（你可以设更小，比如 0.3）
+  outage_trade_allowed: true      # outage 时允许交易（但建议 reduce risk）
+
+# ----------------------------
+# Alerts / Events
+# ----------------------------
+alerts:
+  # 哪些事件会被记录为重要事件（可后续接通知）
+  send_on:
+    - "MODE_CHANGE"
+    - "SHOCK_MOVE"
+    - "DATA_OUTAGE"
